@@ -6,28 +6,31 @@ function NewOrder() {
     const [name, setName] = useState('');
     const [quantity, setQuantity] = useState('')
 
+    
+    
     const onSubmit = () => {
         
         
         if (name === '' && quantity === '') {
             alert( 'Please enter a name and quantity' );
           } else {
-            const newLog = {
+            const newOrder = {
                 name,
                 quantity,
               date: new Date()
             };
-            console.log(newLog)
+            console.log(newOrder)
             
             
             fetch('http://localhost:5000/customer-orders', {
                 method: 'POST',
-                body: JSON.stringify(newLog),
+                body: JSON.stringify(newOrder),
                 headers: {
                     'Content-Type': 'application/json'
                 }
               });
-              M.toast({ html: `Your order is placed` })
+              
+              M.toast({ html: `Your order is placed!` })
         
               setName('');
               setQuantity('')
@@ -39,15 +42,15 @@ function NewOrder() {
     return (
         <div style={{margin: 40}}>
                     <div>
-                    <h2>Name</h2> 
+                    <label>Name: </label>  
                     <input name="name" type="text" value={name} onChange={e => setName(e.target.value)} />
                     </div>
                     <div>
-                    <h2>Quantity</h2> 
-                    <input name="quantity" type="number" value={quantity} onChange={e => setQuantity(e.target.value)} style={{margin: 20}}/>
+                    <label>Quantity: </label> 
+                    <input name="quantity" type="number" value={quantity} onChange={e => setQuantity(e.target.value)}/>
                     </div>
                     <button type="submit" onClick={onSubmit} >Send data!</button>
-                    <p id="acknowledgement"></p>
+                    
         </div>
     )
 }
